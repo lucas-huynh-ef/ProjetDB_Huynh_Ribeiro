@@ -7,9 +7,9 @@ CREATE TABLE Auteur(
 );
 
 CREATE TABLE Editeur(
-   Id_Editeur VARCHAR(50),
+   Id_Editeur INT,
    Nom_Editeur VARCHAR(50) NOT NULL,
-   Email_Contact_Editeur VARCHAR(50),
+   Email_Contact_Editeur VARCHAR(100),
    PRIMARY KEY(Id_Editeur)
 );
 
@@ -21,8 +21,9 @@ CREATE TABLE Client(
    Date_Début_Abo DATE,
    Email_Client VARCHAR(200) NOT NULL,
    Adresse_Postale_Client VARCHAR(200),
-   Téléphone_Client INT,
-   PRIMARY KEY(Num_Client)
+   Téléphone_Client VARCHAR(15),
+   PRIMARY KEY(Num_Client),
+   CONSTRAINT chk_dates_abo CHECK (Date_Fin_Abo >= Date_Debut_Abo)
 );
 
 CREATE TABLE Vente(
@@ -43,9 +44,12 @@ CREATE TABLE Livre(
    Quantité_Stock_Vente INT NOT NULL,
    Genre_Littéraire VARCHAR(50) NOT NULL,
    Langue VARCHAR(50) NOT NULL,
-   Id_Editeur VARCHAR(50) NOT NULL,
+   Id_Editeur INT NOT NULL,
    PRIMARY KEY(ISBN),
-   FOREIGN KEY(Id_Editeur) REFERENCES Editeur(Id_Editeur)
+   FOREIGN KEY(Id_Editeur) REFERENCES Editeur(Id_Editeur),
+   CONSTRAINT chk_prix_vente CHECK (Prix_Vente >=0),
+   CONSTRAINT chk_stock CHECK (Quantité_Stock_Vente >= 0),
+   CONSTRAINT chk_format CHECK (Format_Livre IN ('Poche','Broché','Relié'))
 );
 
 CREATE TABLE Exemplaire(
@@ -54,7 +58,8 @@ CREATE TABLE Exemplaire(
    Date_Acquisition DATE,
    ISBN VARCHAR(13) NOT NULL,
    PRIMARY KEY(Code_Barre_Interne),
-   FOREIGN KEY(ISBN) REFERENCES Livre(ISBN)
+   FOREIGN KEY(ISBN) REFERENCES Livre(ISBN),
+   CONSTRAINT chk_etat_exemplaire CHECK (Etat IN ('Neuf','Bon','Passable','Abimé','Perdu'))
 );
 
 CREATE TABLE Emprunt(
@@ -69,6 +74,10 @@ CREATE TABLE Emprunt(
    PRIMARY KEY(Ref_Emprunt),
    FOREIGN KEY(Num_Client) REFERENCES Client(Num_Client),
    FOREIGN KEY(Code_Barre_Interne) REFERENCES Exemplaire(Code_Barre_Interne)
+   CONSTRAINT chk_dates_emprunt_prevue CHECK (Date_Retour_Prevue >= Date_Début_Emprunt),
+   CONSTRAINT chk_dates_emprunt_effective CHECK (Date_Retour_Effective >= Date_Début_Emprunt),
+   CONSTRAINT chk_etat_depart CHECK (Etat_Physique_Départ IN ('Neuf', 'Bon', 'Passable', 'Abîmé', 'Perdu')),
+   CONSTRAINT chk_etat_retour CHECK (Etat_Physique_Retour IN ('Neuf', 'Bon', 'Passable', 'Abîmé', 'Perdu'))
 );
 
 CREATE TABLE Ecrit_Par(
@@ -85,5 +94,6 @@ CREATE TABLE Composé_De(
    Quantité_Vendue INT NOT NULL,
    PRIMARY KEY(ISBN, Num_Ticket),
    FOREIGN KEY(ISBN) REFERENCES Livre(ISBN),
-   FOREIGN KEY(Num_Ticket) REFERENCES Vente(Num_Ticket)
+   FOREIGN KEY(Num_Ticket) REFERENCES Vente(Num_Ticket),
+   CONSTRAINT chk_qte_vendue CHECK (Quantité_Vendue > 0)
 );
