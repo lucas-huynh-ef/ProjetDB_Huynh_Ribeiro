@@ -99,4 +99,5 @@ Voici le tableau récapitulant les 32 données issues de notre fonctionnement qu
 
 J'espère que ces éléments te donnent une base solide pour commencer l'élaboration du Modèle Conceptuel de Données (MCD). N'hésite pas si tu as besoin de précisions sur notre façon de travailler !
 
-<img width="1057" height="630" alt="image" src="https://github.com/user-attachments/assets/0f7fa0b0-1bc3-415e-a1c5-76b3530f9838" />
+<img width="1332" height="818" alt="image" src="https://github.com/user-attachments/assets/39f08d7a-cbce-4995-b371-9a7cbc676140" />
+
