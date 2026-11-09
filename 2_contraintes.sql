@@ -52,7 +52,7 @@ CREATE TABLE Livre(
    FOREIGN KEY(Id_Editeur) REFERENCES Editeur(Id_Editeur),
    CONSTRAINT chk_prix_vente CHECK (Prix_Vente >= 0),
    CONSTRAINT chk_stock CHECK (Quantité_Stock_Vente >= 0),
-   CONSTRAINT chk_format CHECK (Format_Livre IN ('Poche', 'Broché', 'Relié', 'Audio', 'Pléiade')),
+   CONSTRAINT chk_format CHECK (Format_Livre IN ('Poche', 'Broché', 'Relié')),
    CONSTRAINT chk_isbn_longueur CHECK (LENGTH(ISBN) = 13)
 );
 
