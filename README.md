@@ -23,8 +23,8 @@ Voici d'abord nos règles de gestion, suivies du dictionnaire recensant les donn
 
 * **Concernant les livres :**
 * Chaque livre est identifié de manière unique par son numéro ISBN.
-* Pour un livre, nous avons besoin de connaître son titre, sa date de publication, sa langue principale et un court résumé.
-* Un livre a un prix de vente défini. S'il est disponible pour l'espace bibliothèque, il possède également un tarif d'emprunt (qui peut être gratuit).
+* Pour un livre, nous avons besoin de connaître son titre, sa date de publication, sa langue principale, son type et un court résumé.
+* Un livre a un prix de vente défini.
 * Nous devons gérer deux stocks distincts : la quantité de livres disponibles à la vente en magasin, et la quantité d'exemplaires dédiés au prêt.
 * Chaque livre est classé dans un et un seul genre littéraire principal (ex: Science-Fiction, Histoire, Jeunesse) pour faciliter le rangement.
 
